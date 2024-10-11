@@ -1,17 +1,16 @@
 [
     {
         "id": 1,
-        "description": "Buy groceries.",
-        "status": "In Progress"
+        "description": "Buy coffee and produce",
+        "status": "Done",
+        "createdAt": "2024-10-11T15:28:31.007495",
+        "updatedAt": "2024-10-11T15:29:08.397131"
     },
     {
         "id": 2,
-        "description": "Go to doctor.",
-        "status": "In Progress"
-    },
-    {
-        "id": 3,
-        "description": "Make dinner.",
-        "status": "In Progress"
+        "description": "Go to doctor's office",
+        "status": "In Progress",
+        "createdAt": "2024-10-11T15:30:47.078516",
+        "updatedAt": "2024-10-11T15:30:47.078516"
     }
 ]
