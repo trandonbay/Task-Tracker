@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "description": "Buy groceries.",
+        "status": "In Progress"
+    },
+    {
+        "id": 2,
+        "description": "Go to doctor.",
+        "status": "In Progress"
+    },
+    {
+        "id": 3,
+        "description": "Make dinner.",
+        "status": "In Progress"
+    }
+]
