@@ -1,4 +1,6 @@
-# Task CLI
+# Task Tracker CLI
+
+Sample solution for the [task-tracker](https://roadmap.sh/projects/task-tracker) challenge from [roadmap.sh](https://roadmap.sh/).
 
 A simple command-line interface (CLI) task manager written in Python. This application allows you to manage your tasks through a series of commands, including adding, updating, deleting, and listing tasks.
 
