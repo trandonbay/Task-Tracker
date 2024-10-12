@@ -21,69 +21,84 @@ def add_task(tasks, description):
     task = {
         "id": len(tasks) + 1, 
         "description": description, 
-        "status": "In Progress",
+        "status": "todo",
         "createdAt": timestamp,
         "updatedAt": timestamp}
     tasks.append(task)
+    print(f"Task added successfully. (ID: {task['id']})")
 
-def update_task(tasks, task_id, description):
+def update_task(tasks, task_id, description=None, status=None):
     for task in tasks:
         if task["id"] == task_id:
-            task["description"] = description
-            task["updatedAt"] = datetime.datetime.now().isoformat()
-
-def update_status(tasks, task_id, status):
-    for task in tasks:
-        if task["id"] == task_id:
-            task["status"] = status
+            if description:
+                task["description"] = description
+            if status:
+                task["status"] = status
+        task["updatedAt"] = datetime.datetime.now().isoformat()
         
 def delete_task(tasks, task_id):
     tasks[:] = [task for task in tasks if task["id"] != task_id]
 
 def list_tasks(tasks, status=None):
-    if not tasks:
+    filtered_tasks = [task for task in tasks if not status or task["status"] == status]
+
+    if not filtered_tasks:
         print("There are currently no tasks. Please add a task.")
 
-    if status == "in-progress":
-        for task in tasks:
-            if task["status"] == "In Progress":
-                print(f'{task["id"]}: {task["description"]} [{task["status"]}]')
-    elif status == "done":
-        for task in tasks:
-            if task["status"] == "Done":
-                print(f'{task["id"]}: {task["description"]} [{task["status"]}]')
-    else:
-        for task in tasks:
-            print(f'{task["id"]}: {task["description"]} [{task["status"]}]')
+    for task in filtered_tasks:
+        print(f'{task["id"]}: {task["description"]} [{task["status"]}]')
 
 def main():
+    args = sys.argv[1:]
+
     tasks = load_tasks()
 
-    args = sys.argv
+    command_map = {
+        "add": add_task,
+        "new": add_task, # alias for add
+        "update": update_task,
+        "modify": update_task, # alias for update
+        "mark-in-progress": lambda tasks, task_id: update_task(tasks, task_id, status="in-progress"),
+        "in-progress": lambda tasks, task_id: update_task(tasks, task_id, status="in-progress"),
+        "mark-done": lambda tasks, task_id: update_task(tasks, task_id, status="done"),
+        "done": lambda tasks, task_id: update_task(tasks, task_id, status="done"),
+        "delete": delete_task,
+        "remove": delete_task,
+        "list": list_tasks,
+        "view": list_tasks,
+    }
 
-    try:
-        if args[1].lower() == "add":
-            description = args[2]
-            add_task(tasks, description)
-        elif args[1].lower() == "update":
-            task_id, new_description = int(args[2]), args[3]
-            update_task(tasks, task_id, new_description)
-        elif args[1].lower() == "status":
-            task_id, new_status = int(args[2]), args[3]
-            update_status(tasks, task_id, new_status)
-        elif args[1].lower() == "delete":
-            task_id = int(args[2])
-            delete_task(tasks, task_id)
-        elif args[1].lower() == "list":
-            try:
-                status = args[2]
-                list_tasks(tasks, status)
-            except IndexError:
-                list_tasks(tasks)
-        else:
-            print("Please try again.")
-    except IndexError:
-        print("Needs more details.")
+    if not args:
+        print("Please provide a command.")
+        return
+
+    command = args[0].lower()
+
+    if command in command_map:
+        try:
+            if command in ["add", "new"]:
+                description = args[1]
+                command_map[command](tasks, description)
+            elif command in ["update", "modify"]:
+                task_id = int(args[1])
+                description = args[2]
+                command_map[command](tasks, task_id, description=description)
+            elif command in ["mark-in-progress", "in-progress", "mark-done", "done"]:
+                task_id = int(args[1])
+                command_map[command](tasks, task_id)
+            elif command in ["delete", "remove"]:
+                task_id = int(args[1])
+                command_map[command](tasks, task_id)
+            elif command in ["list", "view"]:
+                try:
+                    status = args[1]
+                    command_map[command](tasks, status)
+                except IndexError:
+                    command_map[command](tasks)
+        except IndexError:
+            print(f"Command '{command}' requires additional arguments.")
+    else:
+        print(f"Unknown command: {command}")
 
     save_tasks(tasks)
 

@@ -1,16 +1,37 @@
 [
     {
-        "id": 1,
-        "description": "Buy coffee and produce",
-        "status": "Done",
-        "createdAt": "2024-10-11T15:28:31.007495",
-        "updatedAt": "2024-10-11T15:29:08.397131"
-    },
-    {
         "id": 2,
         "description": "Go to doctor's office",
-        "status": "In Progress",
-        "createdAt": "2024-10-11T15:30:47.078516",
-        "updatedAt": "2024-10-11T15:30:47.078516"
+        "status": "todo",
+        "createdAt": "2024-10-11T16:40:56.390300",
+        "updatedAt": "2024-10-11T17:22:04.151665"
+    },
+    {
+        "id": 3,
+        "description": "Make lunch",
+        "status": "in-progress",
+        "createdAt": "2024-10-11T16:41:02.292115",
+        "updatedAt": "2024-10-11T17:22:04.151672"
+    },
+    {
+        "id": 4,
+        "description": "Get a workout in",
+        "status": "in-progress",
+        "createdAt": "2024-10-11T16:41:11.999821",
+        "updatedAt": "2024-10-11T17:22:04.151674"
+    },
+    {
+        "id": 5,
+        "description": "Do skincare",
+        "status": "todo",
+        "createdAt": "2024-10-11T16:41:18.011723",
+        "updatedAt": "2024-10-11T17:22:04.151675"
+    },
+    {
+        "id": 6,
+        "description": "Go to sleep and dream big!",
+        "status": "done",
+        "createdAt": "2024-10-11T17:20:11.474700",
+        "updatedAt": "2024-10-11T17:22:04.151676"
     }
 ]
